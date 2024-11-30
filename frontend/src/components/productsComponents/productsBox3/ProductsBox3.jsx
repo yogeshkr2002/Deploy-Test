@@ -44,9 +44,12 @@ const ProductsBox3 = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/products", {
-          headers: { Authorization: `Bearer ${user.token}` },
-        });
+        const response = await axios.get(
+          `${import.meta.env.BACKEND_BASEURL}/api/products`,
+          {
+            headers: { Authorization: `Bearer ${user.token}` },
+          }
+        );
         const allProducts = response.data[Object.keys(response.data)[0]] || [];
         setProducts(allProducts);
         setLoading(false);

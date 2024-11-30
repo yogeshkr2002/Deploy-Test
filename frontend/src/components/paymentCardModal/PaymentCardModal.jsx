@@ -37,7 +37,9 @@ const PaymentCardModal = ({ isOpen, onClose, onSubmit, editCard }) => {
       const token = localStorage.getItem("token");
       if (editCard) {
         await axios.put(
-          `http://localhost:5000/api/payment-methods/${editCard._id}`,
+          `${import.meta.env.BACKEND_BASEURL}/api/payment-methods/${
+            editCard._id
+          }`,
           {
             cardNumber: formData.cardNumber,
             cardHolderName: formData.cardHolderName,
@@ -50,7 +52,7 @@ const PaymentCardModal = ({ isOpen, onClose, onSubmit, editCard }) => {
         );
       } else {
         await axios.post(
-          "http://localhost:5000/api/payment-methods",
+          `${import.meta.env.BACKEND_BASEURL}/api/payment-methods`,
           formData,
           {
             headers: { Authorization: `Bearer ${token}` },

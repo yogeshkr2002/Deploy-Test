@@ -38,7 +38,7 @@ const Profile = () => {
     try {
       const token = localStorage.getItem("token");
       const response = await axios.get(
-        "http://localhost:5000/api/users/profile",
+        `${import.meta.env.BACKEND_BASEURL}/api/users/profile`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -53,7 +53,7 @@ const Profile = () => {
     try {
       const token = localStorage.getItem("token");
       const response = await axios.get(
-        "http://localhost:5000/api/payment-methods",
+        `${import.meta.env.BACKEND_BASEURL}/api/payment-methods`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -67,9 +67,13 @@ const Profile = () => {
   const handleEditSubmit = async () => {
     try {
       const token = localStorage.getItem("token");
-      await axios.put("http://localhost:5000/api/users/profile", editedInfo, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      await axios.put(
+        `${import.meta.env.BACKEND_BASEURL}/api/users/profile`,
+        editedInfo,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       setUser({ ...user, ...editedInfo });
       setIsEditing(false);
     } catch (error) {
@@ -80,9 +84,12 @@ const Profile = () => {
   const handleDeletePaymentMethod = async (id) => {
     try {
       const token = localStorage.getItem("token");
-      await axios.delete(`http://localhost:5000/api/payment-methods/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      await axios.delete(
+        `${import.meta.env.BACKEND_BASEURL}/api/payment-methods/${id}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       fetchPaymentMethods();
     } catch (error) {
       console.error("Error deleting payment method:", error);

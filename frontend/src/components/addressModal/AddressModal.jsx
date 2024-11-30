@@ -31,16 +31,20 @@ const AddressModal = ({ isOpen, onClose, address, onSubmit }) => {
       const token = localStorage.getItem("token");
       if (address) {
         await axios.put(
-          `http://localhost:5000/api/addresses/${address._id}`,
+          `${import.meta.env.BACKEND_BASEURL}/api/addresses/${address._id}`,
           formData,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
         );
       } else {
-        await axios.post("http://localhost:5000/api/addresses", formData, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        await axios.post(
+          `${import.meta.env.BACKEND_BASEURL}/api/addresses`,
+          formData,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
       }
       onSubmit();
       onClose();

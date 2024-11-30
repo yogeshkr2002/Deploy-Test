@@ -22,9 +22,12 @@ function CustomerReviews() {
 
   const fetchReviews = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/api/reviews", {
-        headers: { Authorization: `Bearer ${user.token}` },
-      });
+      const response = await axios.get(
+        `${import.meta.env.BACKEND_BASEURL}/api/reviews`,
+        {
+          headers: { Authorization: `Bearer ${user.token}` },
+        }
+      );
       setReviews(response.data);
       setLoading(false);
     } catch (error) {
@@ -37,7 +40,7 @@ function CustomerReviews() {
     e.preventDefault();
     try {
       await axios.post(
-        "http://localhost:5000/api/reviews/add",
+        `${import.meta.env.BACKEND_BASEURL}/api/reviews/add`,
         {
           ...newReview,
           profilePic: `https://randomuser.me/api/portraits/${

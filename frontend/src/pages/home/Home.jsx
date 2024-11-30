@@ -17,9 +17,12 @@ function Home() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/home", {
-          headers: { Authorization: `Bearer ${user.token}` },
-        });
+        const response = await axios.get(
+          `${import.meta.env.BACKEND_BASEURL}/api/home`,
+          {
+            headers: { Authorization: `Bearer ${user.token}` },
+          }
+        );
         setMessage(response.data.message);
       } catch (error) {
         console.error("Error fetching data:", error);

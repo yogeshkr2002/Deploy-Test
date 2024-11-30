@@ -14,7 +14,7 @@ function PopularRestaurants({ heading }) {
     const fetchRestaurants = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/restaurants",
+          `${import.meta.env.BACKEND_BASEURL}/api/restaurants`,
           {
             headers: { Authorization: `Bearer ${user.token}` },
           }

@@ -34,7 +34,7 @@ const Register = () => {
       }
 
       const response = await axios.post(
-        "http://localhost:5000/api/auth/register",
+        `${import.meta.env.BACKEND_BASEURL}/api/auth/register`,
         formData
       );
 
