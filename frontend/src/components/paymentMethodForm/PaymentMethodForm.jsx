@@ -15,13 +15,9 @@ const PaymentMethodForm = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem("token");
-      await axios.post(
-        `${import.meta.env.BACKEND_BASEURL}/api/payment-methods`,
-        formData,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
+      await axios.post("http://localhost:5000/api/payment-methods", formData, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       navigate("/profile");
     } catch (error) {
       console.error("Error adding payment method:", error);

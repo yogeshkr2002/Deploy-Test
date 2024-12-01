@@ -44,12 +44,9 @@ const ProductsBox3 = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get(
-          `${import.meta.env.BACKEND_BASEURL}/api/products`,
-          {
-            headers: { Authorization: `Bearer ${user.token}` },
-          }
-        );
+        const response = await axios.get("http://localhost:5000/api/products", {
+          headers: { Authorization: `Bearer ${user.token}` },
+        });
         const allProducts = response.data[Object.keys(response.data)[0]] || [];
         setProducts(allProducts);
         setLoading(false);
@@ -135,19 +132,22 @@ const ProductsBox3 = () => {
                 {products.length > 0 ? (
                   products.map((product) => (
                     <div key={`${category}-${product._id}`} className="item">
-                      <img src={product.image} alt={product.name} />
                       <div className="itemLeft">
                         <h3>{product.name}</h3>
                         <p>{product.description}</p>
-                        <p className="price">${product.price.toFixed(2)}</p>
+                        <p className="price">Rs. {product.price.toFixed(2)}</p>
                       </div>
-                      <div className="itemRight"></div>
-                      <button
-                        className="addToCartBtn"
-                        onClick={() => addToCart(product)}
-                      >
-                        Add to Cart
-                      </button>
+                      <div className="itemRight">
+                        <img src={product.image} alt={product.name} />
+                      </div>
+                      <div className="itemBtn">
+                        <button
+                          className="addToCartBtn"
+                          onClick={() => addToCart(product)}
+                        >
+                          +
+                        </button>
+                      </div>
                     </div>
                   ))
                 ) : (
@@ -161,63 +161,63 @@ const ProductsBox3 = () => {
         </div>
       )}
 
-      {/* {isCartOpen && (
-      <div className="cart-sidebar">
-        <div className="cart-header">
-          <h2>My Cart</h2>
-          <button className="close-cart" onClick={toggleCart}>
-            ×
-          </button>
-        </div>
-        {cartItems.length === 0 ? (
-          <p>Your cart is empty</p>
-        ) : (
-          <>
-            <div className="cart-items">
-              {cartItems.map((item) => (
-                <div key={item._id} className="cart-item">
-                  <div className="item-info">
-                    <h3>{item.name}</h3>
-                    <p>${item.price.toFixed(2)}</p>
+      {isCartOpen && (
+        <div>
+          <div>
+            <h2>My Cart</h2>
+            <button className="closeCartBtn" onClick={toggleCart}>
+              ×
+            </button>
+          </div>
+          {cartItems.length === 0 ? (
+            <p>Your cart is empty</p>
+          ) : (
+            <>
+              <div className="cart-items">
+                {cartItems.map((item) => (
+                  <div key={item._id} className="cart-item">
+                    <div className="item-info">
+                      <h3>{item.name}</h3>
+                      <p>${item.price.toFixed(2)}</p>
+                    </div>
+                    <div className="item-controls">
+                      <button
+                        onClick={() =>
+                          updateQuantity(item._id, item.quantity - 1)
+                        }
+                      >
+                        -
+                      </button>
+                      <span>{item.quantity}</span>
+                      <button
+                        onClick={() =>
+                          updateQuantity(item._id, item.quantity + 1)
+                        }
+                      >
+                        +
+                      </button>
+                      <button
+                        className="remove-btn"
+                        onClick={() => removeFromCart(item._id)}
+                      >
+                        ×
+                      </button>
+                    </div>
                   </div>
-                  <div className="item-controls">
-                    <button
-                      onClick={() =>
-                        updateQuantity(item._id, item.quantity - 1)
-                      }
-                    >
-                      -
-                    </button>
-                    <span>{item.quantity}</span>
-                    <button
-                      onClick={() =>
-                        updateQuantity(item._id, item.quantity + 1)
-                      }
-                    >
-                      +
-                    </button>
-                    <button
-                      className="remove-btn"
-                      onClick={() => removeFromCart(item._id)}
-                    >
-                      ×
-                    </button>
-                  </div>
-                </div>
-              ))}
-            </div>
-            <div className="cart-footer">
-              <div className="cart-total">
-                <h3>Total: ${getTotalAmount().toFixed(2)}</h3>
+                ))}
               </div>
-              <Link to="/checkout" className="checkout-btn">
-                Checkout <span className="arrow">→</span>
-              </Link>
-            </div>
-          </>
-        )}
-      </div>
-    )} */}
+              <div className="cart-footer">
+                <div className="cart-total">
+                  <h3>Total: ${getTotalAmount().toFixed(2)}</h3>
+                </div>
+                <Link to="/checkout" className="checkout-btn">
+                  Checkout <span className="arrow">→</span>
+                </Link>
+              </div>
+            </>
+          )}
+        </div>
+      )}
     </div>
   );
 };

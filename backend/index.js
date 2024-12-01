@@ -47,10 +47,6 @@ app.get(
   }
 );
 
-app.get("/", (req, res) => {
-  res.send("Hello world");
-});
-
 // Products page route (protected)
 app.get(
   "/api/products",

@@ -10,12 +10,9 @@ const AddressManagement = () => {
   const fetchAddresses = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get(
-        `${import.meta.env.BACKEND_BASEURL}/api/addresses`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
+      const response = await axios.get("http://localhost:5000/api/addresses", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       setAddresses(response.data);
     } catch (error) {
       console.error("Error fetching addresses:", error);
@@ -29,12 +26,9 @@ const AddressManagement = () => {
   const handleDelete = async (id) => {
     try {
       const token = localStorage.getItem("token");
-      await axios.delete(
-        `${import.meta.env.BACKEND_BASEURL}/api/addresses/${id}`,
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
+      await axios.delete(`http://localhost:5000/api/addresses/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
       fetchAddresses();
     } catch (error) {
       console.error("Error deleting address:", error);
